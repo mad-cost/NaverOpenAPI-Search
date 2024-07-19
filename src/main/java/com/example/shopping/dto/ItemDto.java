@@ -2,9 +2,11 @@ package com.example.shopping.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.json.JSONObject;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class ItemDto {
   private String title;

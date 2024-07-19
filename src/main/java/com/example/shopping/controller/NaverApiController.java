@@ -33,9 +33,19 @@ public class NaverApiController {
           Model model
   )  {
     List<ItemDto> itemDtos = naverApiService.searchItems(query);
-    model.addAttribute("items", itemDtos);
+    List<ItemDto> result = new ArrayList<>();
+
+    // title에서 <b></b> 없애기
+    for (ItemDto item: itemDtos) {
+      String itemTitle = item.getTitle().replaceAll("<b>|</b>", "");
+      item.setTitle(itemTitle);
+      // 수정한 데이터를 result에 넣어주기
+      result.add(item);
+    }
+
+    // itemDtos -> result 수정
+    model.addAttribute("items", result);
 
     return "index";
   }
-
 }

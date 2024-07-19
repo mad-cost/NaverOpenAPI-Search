@@ -47,6 +47,9 @@
       .item-title {
           font-weight: bold;
       }
+      .item div {
+          margin-bottom: 5px;
+      }
   </style>
 </head>
 <body>
@@ -70,11 +73,12 @@
       </div>
 
       <div th:each="item : ${items}" class="item">
-        <div class="item-title" th:text="${item.title}"></div>
-        <div class="item-link" th:text="${item.link}"></div>
-        <div class="item-image" th:text="${item.image}"></div>
-        <div class="item-lprice" th:text="${item.lprice}"></div>
+        <div class="item-title" ><span th:text="${item.title}"></span></div>
+        <div class="item-link">linkUrl: <span th:text="${item.link}"></span></div>
+        <div class="item-image">imageUrl: <span th:text="${item.image}"></span></div>
+        <div class="item-lprice">가격: <span th:text="${item.lprice}"></span>원</div>
       </div>
+
     </div>
   </div>
 </div>

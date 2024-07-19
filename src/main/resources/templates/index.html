@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Page</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+      }
+      .search-container {
+          background-color: white;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .search-box {
+          width: 300px;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          margin-right: 10px;
+      }
+      .search-button {
+          padding: 10px 20px;
+          border: none;
+          background-color: #007BFF;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+      .search-button:hover {
+          background-color: #0056b3;
+      }
+      .item {
+          border: 1px solid #ddd;
+          padding: 10px;
+          margin-top: 10px;
+          border-radius: 5px;
+      }
+      .item-title {
+          font-weight: bold;
+      }
+  </style>
+</head>
+<body>
+
+
+
+<div class="search-container">
+  <h2 style="color: #32CD32;">NaverSearchApi</h2>
+
+  <form id="searchForm" action="/search" method="get">
+    <input type="text" id="searchInput" name="query" class="search-box" placeholder="Search here">
+    <button type="submit" class="search-button">Search</button>
+  </form>
+
+  <div class="item-list">
+
+    <div id="itemContainer">
+      <!-- Thymeleaf를 이용하여 서버에서 전달받은 아이템 목록 출력 -->
+      <div th:if="${#lists.isEmpty(items)}" class="no-items">
+        <h3>검색창에 상품을 검색해 주세요</h3>
+      </div>
+
+      <div th:each="item : ${items}" class="item">
+        <div class="item-title" th:text="${item.title}"></div>
+        <div class="item-link" th:text="${item.link}"></div>
+        <div class="item-image" th:text="${item.image}"></div>
+        <div class="item-lprice" th:text="${item.lprice}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

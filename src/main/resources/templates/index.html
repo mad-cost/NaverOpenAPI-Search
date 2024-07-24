@@ -50,12 +50,19 @@
       .item div {
           margin-bottom: 5px;
       }
+
+      /* 이미지*/
+      .search-itemDto-left img {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 159px;
+          height: 159px;
+      }
   </style>
 </head>
 <body>
-
-
-
 <div class="search-container">
   <h2 style="color: #32CD32;">NaverSearchApi</h2>
 
@@ -65,23 +72,51 @@
   </form>
 
   <div class="item-list">
-
     <div id="itemContainer">
       <!-- Thymeleaf를 이용하여 서버에서 전달받은 아이템 목록 출력 -->
       <div th:if="${#lists.isEmpty(items)}" class="no-items">
         <h3>검색창에 상품을 검색해 주세요</h3>
       </div>
 
+      <!-- 상품을 보여주는 영역 -->
       <div th:each="item : ${items}" class="item">
-        <div class="item-title" ><span th:text="${item.title}"></span></div>
-        <div class="item-link">linkUrl: <span th:text="${item.link}"></span></div>
-        <div class="item-image">imageUrl: <span th:text="${item.image}"></span></div>
-        <div class="item-lprice">가격: <span th:text="${item.lprice}"></span>원</div>
+        <!-- 상품 이미지 / 링크 -> 그림 -->
+        <div class="search-itemDto-left" style="margin-bottom: 10px;">
+          <!-- 이미지 클릭시, 해당 링크로 이동 -->
+          <a th:href="${item.link}" target="_blank">
+            <img th:src="${item.image}" alt="Item Image">
+          </a>
+        </div>
+
+        <div>
+          <b><span th:text="${item.title}"></span></b>
+        </div>
+        <!-- 하이퍼 링크 -->
+        <div>linkUrl:
+          <a th:href="${item.link}" target="_blank"> <span th:text="${item.link}"></span></a>
+        </div>
+
+        <div>가격: <span class="price" th:text="${item.lprice}"></span>원</div>
       </div>
 
     </div>
   </div>
 </div>
 
+<script>
+  // 숫자를 3자리마다 콤마로 구분하여 문자열로 변환
+  function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+      const priceElements = document.querySelectorAll('.price');
+      priceElements.forEach(function(element) {
+          let price = parseInt(element.textContent, 10);
+          element.textContent = numberWithCommas(price);
+      });
+  });
+</script>
 </body>
+
 </html>
